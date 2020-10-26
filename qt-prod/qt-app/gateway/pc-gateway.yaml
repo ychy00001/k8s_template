@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: pc-gateway
+  namespace: qt-app
+spec:
+  selector:
+    istio: qt-app-ingressgateway
+  servers:
+  - hosts:
+    ##qingteng.com域名
+    - www.xxx.com
+    port:
+      name: http-pc-other
+      number: 80
+      protocol: HTTP
+  - hosts:
+    - www.xxx.com
+    port:
+      name: https-xxx
+      number: 443
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: "xxx-credential" 

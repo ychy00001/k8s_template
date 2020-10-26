@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: datadir-qt-grafana
+  namespace: qt-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  storageClassName: alicloud-disk-efficiency
+  volumeName: d-2zecbf8g28s44ampj7cx

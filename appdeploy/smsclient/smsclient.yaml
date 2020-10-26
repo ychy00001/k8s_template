@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: smsclient
+  namespace: deploytest
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: smsclient
+      labels:
+        app: smsclient
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: registry.cn-beijing.aliyuncs.com/qingtengcloud/deploytest:smsclient5
+        name: smsclient
+      imagePullSecrets:
+      - name: ali-docker-token
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smsclient
+  namespace: deploytest
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: smsclient
+

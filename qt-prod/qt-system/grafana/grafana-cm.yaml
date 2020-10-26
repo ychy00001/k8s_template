@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: qt-system
+data:
+  grafana.ini: | 
+    [server]
+    root_url = http://grafana.qingtengcloud.com
+    [smtp]
+    enabled = true
+    host = smtp.mxhichina.com:465
+    user = owner@qingtengcloud.com
+    password = QTOwne%(@634
+    skip_verify = false
+    from_address = owner@qingtengcloud.com
+    [alerting]
+    enabled = true
+    execute_alerts = true

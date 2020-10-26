@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: qt-grafana-ingress
+  namespace: qt-system
+spec:
+  rules:
+  - host: grafana.qingtengcloud.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: 80

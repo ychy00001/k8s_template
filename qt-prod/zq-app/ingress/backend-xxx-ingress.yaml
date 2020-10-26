@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: zuqu-backend-ingress
+  namespace: zq-app
+  annotations:
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-rpm: "400"
+spec:
+  tls:
+    - hosts:
+      - backend.xxx.com
+      secretName: tls-backend-xxx-secret
+  rules:
+  - host: backend.xxx.com
+    http:
+      paths:
+      - backend:
+          serviceName: xxx-backend
+          servicePort: 80
+        path: /

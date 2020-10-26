@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hzp-ingress
+  namespace: zq-app
+  annotations:
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-rpm: "400"
+    nginx.ingress.kubernetes.io/server-snippet: |
+       set $rewrite_static false;
+       if ( $request_uri ~* ^(/UUfyxKe3pQ.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/aRC6cZ4MbT.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/Igj3rwoS7d.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/nb3Q0Zwa7P.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/ujo8GUr53h.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/Q6oFagPGHX.txt)){
+          set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/apple-app-site-association)){
+           set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/.well-known/apple-app-site-association)){
+           set $rewrite_static true;
+       }
+       if ( $request_uri ~* ^(/qq_conn/1804304683/apple-app-site-association)){
+           set $rewrite_static true;
+       }
+
+       if ($rewrite_static = true) {
+          rewrite ^/(.*)$ /bhdata/docker/$1 last;
+       }
+spec:
+  tls:
+    - hosts:
+      - hzp.xxx.com
+      secretName: tls-hzp-secret
+  rules:
+  - host: hzp.xxx.com
+    http:
+      paths:
+      - backend:
+          serviceName: baihejia-hzp
+          servicePort: 80
+        path: /
